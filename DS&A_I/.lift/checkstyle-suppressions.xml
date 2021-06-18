@@ -277,6 +277,10 @@
     <suppress id="Wrapper"
               files="(ShortestCommonAncestor|SAP|DeluxeBFS).java"/>
 
+    <!-- some CircularSuffixArray solutions use an Integer[] -->
+    <suppress id="Wrapper"
+              files="(CircularSuffixArray).java"/>
+
 
     <!--  ***********************************************************************  -->
     <!--  IGNORE HEADER CHECKS EXCEPT ON CERTAIN FILES                             -->

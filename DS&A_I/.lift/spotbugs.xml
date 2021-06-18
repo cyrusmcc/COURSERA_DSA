@@ -458,6 +458,12 @@
         <BugPattern name="FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY" />
     </Match>
 
+    <!-- some false positives -->
+    <Match>
+        <Class name = "~(SeamCarver)" />
+        <BugPattern name="SLS_SUSPICIOUS_LOOP_SEARCH" />
+    </Match>
+
     <!-- BoggleBoard doesn't implement hashCode() or equals() and does safe test for floating-point equality -->
     <Match>
         <Class name = "~(BoggleBoard)(226)?" />
