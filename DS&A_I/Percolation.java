@@ -2,9 +2,9 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
-    int size;
-    int[][] grid;
-    WeightedQuickUnionUF union;
+    private int size;
+    private int[][] grid;
+    private WeightedQuickUnionUF union;
 
     // creates n-by-n grid, with all sites initially blocked
     public  Percolation(int n) {
@@ -112,7 +112,7 @@ public class Percolation {
         }
     }
 
-    public void print() {
+    private void print() {
         for(int i = 1; i <= size; i++) {
             for(int j = 1; j <= size; j++) {
                 System.out.print(grid[i][j]);

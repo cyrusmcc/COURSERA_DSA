@@ -3,8 +3,8 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
 
-    int size, trials;
-    int[] numOpenPerTrial;
+    private int size, trials;
+    private int[] numOpenPerTrial;
 
     // perform independent trials on an n-by-n grid
     public PercolationStats(int n, int trials) {
@@ -51,7 +51,6 @@ public class PercolationStats {
     }
 
     // test client (see below)
-    @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
     public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
