@@ -1,3 +1,7 @@
+import edu.princeton.cs.algs4.StdDraw;
+
+import java.awt.*;
+
 /*************************************************************************
  *  Compilation:  javac LineSegment.java
  *  Execution:    none
@@ -33,11 +37,12 @@ public class LineSegment {
         this.q = q;
     }
 
-    
     /**
      * Draws this line segment to standard draw.
      */
     public void draw() {
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.setPenRadius(0.002);
         p.drawTo(q);
     }
 

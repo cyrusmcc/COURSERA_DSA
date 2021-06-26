@@ -8,6 +8,7 @@
  *
  ******************************************************************************/
 
+import java.awt.*;
 import java.util.Comparator;
 import edu.princeton.cs.algs4.StdDraw;
 
@@ -33,6 +34,8 @@ public class Point implements Comparable<Point> {
      */
     public void draw() {
         /* DO NOT MODIFY */
+        StdDraw.setPenColor(Color.red);
+        StdDraw.setPenRadius(0.02);
         StdDraw.point(x, y);
     }
 
@@ -83,8 +86,14 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
+        if((y == that.y) && (x == that.x)) return 0;
 
-        return 0;
+        if(y > that.y) return 1;
+
+        if(y < that.y) return -1;
+
+        if((y == that.y) && (x < that.x)) return -1;
+        else return 1;
     }
 
     /**
@@ -95,10 +104,18 @@ public class Point implements Comparable<Point> {
      */
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
+        Comparator<Point> comparator = (o1, o2) -> {
+            double slopeO1 = slopeTo(o1);
+            double slopeO2 = slopeTo(o2);
 
-        return null;
+            if(slopeO1 < slopeO2) return -1;
+            if((slopeO1 == slopeO2)) return 0;
+
+            else return 1;
+        };
+
+        return comparator;
     }
-
 
     /**
      * Returns a string representation of this point.
@@ -116,10 +133,45 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        Point p1 = new Point(1, 3);
-        Point p2 = new Point(1, 2);
 
-        System.out.println(p1.slopeTo(p2));
+        Point[] arr = new Point[4];
 
+        arr[0] = new Point(1, 2);
+        arr[1] = new Point(2, 4);
+        arr[2] = new Point (4, 8);
+        arr[3] = new Point (8, 12);
+
+
+        StdDraw.enableDoubleBuffering();
+        StdDraw.setXscale(0, 20);
+        StdDraw.setYscale(0, 20);
+        for (Point p : arr) {
+            p.draw();
+        }
+        StdDraw.show();
+
+        double p1 = arr[0].slopeTo(arr[1]);
+        double p2 = arr[0].slopeTo(arr[2]);
+        double p3 = arr[0].slopeTo(arr[3]);
+
+        System.out.println(arr[0].slopeTo(arr[1]));
+        System.out.println(arr[0].slopeTo(arr[2]));
+        System.out.println(arr[0].slopeTo(arr[3]));
+
+        if((p1 == p2) && (p1 == p3) && (p2 == p3)) System.out.println("connect");
+
+        Comparator<Point> comp = arr[0].slopeOrder();
+        System.out.println(comp.compare(arr[1], arr[2]));
+
+    /*
+        System.out.println("slope == " + p1.slopeTo(p2));
+        System.out.println("is p1 bigger " + p1.compareTo(p2));
+
+        Comparator<Point> comp = p1.slopeOrder();
+
+        System.out.println(comp.compare(p2, p3));
+
+        System.out.println(p1.toString());
+     */
     }
 }
