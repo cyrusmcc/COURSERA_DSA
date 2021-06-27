@@ -13,26 +13,13 @@ public class BruteCollinearPoints {
 
 
     public BruteCollinearPoints(Point[] points) {
-    /*
-        for(int i = 0; i < points.length-3; i++) {
-            double p1SlopeToP2 = points[i].slopeTo(points[i+1]);
-            double p1SlopeToP3 = points[i].slopeTo(points[i+2]);
-            double p1SlopeToP4 = points[i].slopeTo(points[i+3]);
 
-            if((p1SlopeToP2 == p1SlopeToP3) && (p1SlopeToP2 == p1SlopeToP4)) {
-                lineSegmentList.add(new LineSegment(points[i],points[i+3]));
-                numSegments++;
-            }
-        }
-    */
-
-
-        for (int i = 0; i < points.length-3; i++) {
-            for(int j = i+1; j < points.length-2; j++) {
-                for(int k = j+1; k < points.length-1; k++) {
+        for (int i = 0; i < points.length; i++) {
+            for(int j = i+1; j < points.length; j++) {
+                double s1 = points[i].slopeTo(points[j]);
+                for(int k = j+1; k < points.length; k++) {
+                    double s2 = points[i].slopeTo(points[k]);
                     for(int l = k+1; l < points.length; l++) {
-                        double s1 = points[i].slopeTo(points[j]);
-                        double s2 = points[i].slopeTo(points[k]);
                         double s3 = points[i].slopeTo(points[l]);
                         if((s1 == s2) && (s1 == s3) && (s2 == s3)) {
                             System.out.println(s1 + " " + s2 + " " + s3);
