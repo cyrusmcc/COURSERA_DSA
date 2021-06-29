@@ -3,8 +3,6 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 public class BruteCollinearPoints {
@@ -23,9 +21,9 @@ public class BruteCollinearPoints {
 
                     double s2 = (points[i].slopeTo(points[k]));
 
-                    for (int l = k+1; l < points.length; l++) {
+                    for (int t = k+1; t < points.length; t++) {
 
-                        double s3 = (points[i].slopeTo(points[l]));
+                        double s3 = (points[i].slopeTo(points[t]));
 
                         if ((s1 == s2) && (s1 == s3)) {
 
@@ -33,7 +31,7 @@ public class BruteCollinearPoints {
                             temp[0] = points[i];
                             temp[1] = points[j];
                             temp[2] = points[k];
-                            temp[3] = points[l];
+                            temp[3] = points[t];
 
                             Point lowest = temp[0];
                             Point highest = temp[0];

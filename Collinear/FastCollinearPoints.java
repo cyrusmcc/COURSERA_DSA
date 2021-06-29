@@ -41,12 +41,12 @@ public class FastCollinearPoints {
                         max = sortedPoints[j-1];
                         lineSegmentList.add(new LineSegment(curr, max));
                         numSegments++;
-                        //System.out.println(numCon + " low: " + curr + "max: " + max);
+                        // System.out.println(numCon + " low: " + curr + "max: " + max);
                         break;
                     }
                 }
             }
-            //System.out.println("");
+            // System.out.println("");
         }
 
     } // finds all line segments containing 4 or more points

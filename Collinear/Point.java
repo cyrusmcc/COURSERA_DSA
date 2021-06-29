@@ -8,7 +8,6 @@
  *
  ******************************************************************************/
 
-import java.awt.*;
 import java.util.Comparator;
 import edu.princeton.cs.algs4.StdDraw;
 
@@ -34,8 +33,8 @@ public class Point implements Comparable<Point> {
      */
     public void draw() {
         /* DO NOT MODIFY */
-        //StdDraw.setPenColor(Color.red);
-        //StdDraw.setPenRadius(0.02);
+        // StdDraw.setPenColor(Color.red);
+        // StdDraw.setPenRadius(0.02);
         StdDraw.point(x, y);
     }
 
@@ -69,7 +68,7 @@ public class Point implements Comparable<Point> {
 
         if (that.x == x) return +0.0;
 
-        return ((double ) (that.y - y) / (that.x - x));
+        return ((double )(that.y - y) / (that.x - x));
     }
 
 
@@ -110,9 +109,7 @@ public class Point implements Comparable<Point> {
 
             if (slopeO1 > slopeO2) return 1;
             if (slopeO1 < slopeO2) return -1;
-            else if(slopeO1 == slopeO2) return 0;
-
-            return 10;
+            else return 0;
         };
 
         return comparator;
