@@ -3,6 +3,7 @@ import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,26 +12,44 @@ public class BruteCollinearPoints {
     private int numSegments = 0;
     private List<LineSegment> lineSegmentList = new ArrayList<>();
 
-
     public BruteCollinearPoints(Point[] points) {
 
         for (int i = 0; i < points.length; i++) {
-            for(int j = i+1; j < points.length; j++) {
-                double s1 = points[i].slopeTo(points[j]);
-                for(int k = j+1; k < points.length; k++) {
-                    double s2 = points[i].slopeTo(points[k]);
-                    for(int l = k+1; l < points.length; l++) {
-                        double s3 = points[i].slopeTo(points[l]);
-                        if((s1 == s2) && (s1 == s3) && (s2 == s3)) {
-                            System.out.println(s1 + " " + s2 + " " + s3);
-                            lineSegmentList.add(new LineSegment(points[i],points[l]));
+            for (int j = i+1; j < points.length; j++) {
+
+                double s1 = (points[i].slopeTo(points[j]));
+
+                for (int k = j+1; k < points.length; k++) {
+
+                    double s2 = (points[i].slopeTo(points[k]));
+
+                    for (int l = k+1; l < points.length; l++) {
+
+                        double s3 = (points[i].slopeTo(points[l]));
+
+                        if ((s1 == s2) && (s1 == s3)) {
+
+                            Point[] temp = new Point[4];
+                            temp[0] = points[i];
+                            temp[1] = points[j];
+                            temp[2] = points[k];
+                            temp[3] = points[l];
+
+                            Point lowest = temp[0];
+                            Point highest = temp[0];
+
+                            for(int f = 0; f < 4; f++) {
+                                if(lowest.compareTo(temp[f]) == 1) lowest = temp[f];
+                                if(highest.compareTo(temp[f]) == -1) highest = temp[f];
+                            }
+
+                            lineSegmentList.add(new LineSegment(lowest, highest));
                             numSegments++;
                         }
                     }
                 }
             }
         }
-
     } // finds all line segments containing 4 points
 
     public int numberOfSegments() {

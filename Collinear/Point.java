@@ -63,14 +63,15 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
-        if((that.y == y) && (that.x == x)) return Double.NEGATIVE_INFINITY;
+        if (compareTo(that) == 0) return Double.NEGATIVE_INFINITY;
 
-        if(that.y == y) return Double.POSITIVE_INFINITY;
+        if (that.y == y) return Double.POSITIVE_INFINITY;
 
-        if(that.x == x) return +0.0;
+        if (that.x == x) return +0.0;
 
-        return ((that.y - y) / (that.x - x));
+        return ((double ) (that.y - y) / (that.x - x));
     }
+
 
     /**
      * Compares two points by y-coordinate, breaking ties by x-coordinate.
@@ -86,13 +87,12 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
-        if((y == that.y) && (x == that.x)) return 0;
+        if ((that.y == y) && (that.x == x)) return 0;
 
-        if(y > that.y) return 1;
+        if (y < that.y) return -1;
 
-        if(y < that.y) return -1;
+        if(((y == that.y) && (x < that.x))) return -1;
 
-        if((y == that.y) && (x < that.x)) return -1;
         else return 1;
     }
 
@@ -108,10 +108,11 @@ public class Point implements Comparable<Point> {
             double slopeO1 = slopeTo(o1);
             double slopeO2 = slopeTo(o2);
 
+            if(slopeO1 > slopeO2) return 1;
             if(slopeO1 < slopeO2) return -1;
-            if((slopeO1 == slopeO2)) return 0;
+            else if(slopeO1 == slopeO2) return 0;
 
-            else return 1;
+            return 10;
         };
 
         return comparator;
@@ -158,7 +159,7 @@ public class Point implements Comparable<Point> {
         System.out.println(arr[0].slopeTo(arr[2]));
         System.out.println(arr[0].slopeTo(arr[3]));
 
-        if((p1 == p2) && (p1 == p3) && (p2 == p3)) System.out.println("connect");
+        if ((p1 == p2) && (p1 == p3) && (p2 == p3)) System.out.println("connect");
 
         Comparator<Point> comp = arr[0].slopeOrder();
         System.out.println(comp.compare(arr[1], arr[2]));
