@@ -38,9 +38,9 @@ public class BruteCollinearPoints {
                             Point lowest = temp[0];
                             Point highest = temp[0];
 
-                            for(int f = 0; f < 4; f++) {
-                                if(lowest.compareTo(temp[f]) == 1) lowest = temp[f];
-                                if(highest.compareTo(temp[f]) == -1) highest = temp[f];
+                            for (int f = 0; f < 4; f++) {
+                                if (lowest.compareTo(temp[f]) == 1) lowest = temp[f];
+                                if (highest.compareTo(temp[f]) == -1) highest = temp[f];
                             }
 
                             lineSegmentList.add(new LineSegment(lowest, highest));
@@ -107,7 +107,6 @@ public class BruteCollinearPoints {
             segment.draw();
         }
         StdDraw.show();
-
 
     }
 }

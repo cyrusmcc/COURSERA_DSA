@@ -34,8 +34,8 @@ public class Point implements Comparable<Point> {
      */
     public void draw() {
         /* DO NOT MODIFY */
-        StdDraw.setPenColor(Color.red);
-        StdDraw.setPenRadius(0.02);
+        //StdDraw.setPenColor(Color.red);
+        //StdDraw.setPenRadius(0.02);
         StdDraw.point(x, y);
     }
 
@@ -91,7 +91,7 @@ public class Point implements Comparable<Point> {
 
         if (y < that.y) return -1;
 
-        if(((y == that.y) && (x < that.x))) return -1;
+        if (((y == that.y) && (x < that.x))) return -1;
 
         else return 1;
     }
@@ -108,8 +108,8 @@ public class Point implements Comparable<Point> {
             double slopeO1 = slopeTo(o1);
             double slopeO2 = slopeTo(o2);
 
-            if(slopeO1 > slopeO2) return 1;
-            if(slopeO1 < slopeO2) return -1;
+            if (slopeO1 > slopeO2) return 1;
+            if (slopeO1 < slopeO2) return -1;
             else if(slopeO1 == slopeO2) return 0;
 
             return 10;
