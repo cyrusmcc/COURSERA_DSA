@@ -12,7 +12,10 @@ public class BruteCollinearPoints {
 
     public BruteCollinearPoints(Point[] points) {
 
+        if(findDuplicatePoints(points) == true) throw new IllegalArgumentException();
+
         for (int i = 0; i < points.length; i++) {
+            if(points[i] == null) throw new IllegalArgumentException();
             for (int j = i+1; j < points.length; j++) {
 
                 double s1 = (points[i].slopeTo(points[j]));
@@ -37,8 +40,8 @@ public class BruteCollinearPoints {
                             Point highest = temp[0];
 
                             for (int f = 0; f < 4; f++) {
-                                if (lowest.compareTo(temp[f]) == 1) lowest = temp[f];
-                                if (highest.compareTo(temp[f]) == -1) highest = temp[f];
+                                if (lowest.compareTo(temp[f]) > 0) lowest = temp[f];
+                                if (highest.compareTo(temp[f]) < 0) highest = temp[f];
                             }
 
                             lineSegmentList.add(new LineSegment(lowest, highest));
@@ -53,6 +56,20 @@ public class BruteCollinearPoints {
     public int numberOfSegments() {
         return numSegments;
     } // the number of line segments
+
+    private boolean findDuplicatePoints(Point[] points) {
+
+        if (points == null) return true;
+
+        for (int i = 0; i < points.length; i++) {
+            Point p1 = points[i];
+            for (int j = i+1; j < points.length; j++) {
+                Point p2 = points[j];
+                if ((p1 == null) || (p2 == null) || (p1.compareTo(p2) == 0)) return true;
+            }
+        }
+        return false;
+    }
 
     public LineSegment[] segments() {
         LineSegment[] lineSegmentArr = lineSegmentList.toArray(new LineSegment[0]);

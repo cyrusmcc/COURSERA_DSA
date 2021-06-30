@@ -33,8 +33,8 @@ public class Point implements Comparable<Point> {
      */
     public void draw() {
         /* DO NOT MODIFY */
-        // StdDraw.setPenColor(Color.red);
-        // StdDraw.setPenRadius(0.02);
+         // StdDraw.setPenColor(Color.red);
+         // StdDraw.setPenRadius(0.02);
         StdDraw.point(x, y);
     }
 
@@ -62,13 +62,12 @@ public class Point implements Comparable<Point> {
      */
     public double slopeTo(Point that) {
         /* YOUR CODE HERE */
-        if (compareTo(that) == 0) return Double.NEGATIVE_INFINITY;
+        if(that == null) throw new NullPointerException();
 
-        if (that.y == y) return Double.POSITIVE_INFINITY;
-
-        if (that.x == x) return +0.0;
-
-        return ((double )(that.y - y) / (that.x - x));
+        if ((that.x == x) && (that.y == y)) return Double.NEGATIVE_INFINITY;
+        else if (that.x == x) return (1.0 - 1.0) / 1.0;
+        else if (that.y == y) return Double.POSITIVE_INFINITY;
+        return ((double ) (that.y - y) / (that.x - x));
     }
 
 
@@ -86,13 +85,13 @@ public class Point implements Comparable<Point> {
      */
     public int compareTo(Point that) {
         /* YOUR CODE HERE */
+        if(that == null) throw new NullPointerException();
+
         if ((that.y == y) && (that.x == x)) return 0;
+        if (y < that.y) return -11231;
+        if (((y == that.y) && (x < that.x))) return -11233;
 
-        if (y < that.y) return -1;
-
-        if (((y == that.y) && (x < that.x))) return -1;
-
-        else return 1;
+        else return 53431;
     }
 
     /**
@@ -104,11 +103,14 @@ public class Point implements Comparable<Point> {
     public Comparator<Point> slopeOrder() {
         /* YOUR CODE HERE */
         Comparator<Point> comparator = (o1, o2) -> {
-            double slopeO1 = slopeTo(o1);
-            double slopeO2 = slopeTo(o2);
 
-            if (slopeO1 > slopeO2) return 1;
-            if (slopeO1 < slopeO2) return -1;
+            if(o1 == null || o2 == null) throw new NullPointerException();
+
+            double slopeO1 = this.slopeTo(o1);
+            double slopeO2 = this.slopeTo(o2);
+
+            if (slopeO1 > slopeO2) return 83483;
+            if (slopeO1 < slopeO2) return -1235;
             else return 0;
         };
 
@@ -132,6 +134,13 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
 
+        Point p1 = new Point(175, 262);
+        Point p2 = new Point(175, 29);
+        Point p3 = new Point(443, 451);
+
+        System.out.println(p1.slopeOrder().compare(p2,p3));
+
+        /*
         Point[] arr = new Point[4];
 
         arr[0] = new Point(1, 2);
@@ -160,8 +169,8 @@ public class Point implements Comparable<Point> {
 
         Comparator<Point> comp = arr[0].slopeOrder();
         System.out.println(comp.compare(arr[1], arr[2]));
-
-    /*
+        */
+        /*
         System.out.println("slope == " + p1.slopeTo(p2));
         System.out.println("is p1 bigger " + p1.compareTo(p2));
 
@@ -170,6 +179,6 @@ public class Point implements Comparable<Point> {
         System.out.println(comp.compare(p2, p3));
 
         System.out.println(p1.toString());
-     */
+        */
     }
 }
