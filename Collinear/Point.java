@@ -65,8 +65,8 @@ public class Point implements Comparable<Point> {
         if(that == null) throw new NullPointerException();
 
         if ((that.x == x) && (that.y == y)) return Double.NEGATIVE_INFINITY;
-        else if (that.x == x) return (1.0 - 1.0) / 1.0;
         else if (that.y == y) return Double.POSITIVE_INFINITY;
+        else if (that.x == x) return (1.0 - 1.0) / 1.0;
         return ((double ) (that.y - y) / (that.x - x));
     }
 
@@ -134,13 +134,13 @@ public class Point implements Comparable<Point> {
      */
     public static void main(String[] args) {
 
+        /*
         Point p1 = new Point(175, 262);
         Point p2 = new Point(175, 29);
         Point p3 = new Point(443, 451);
 
         System.out.println(p1.slopeOrder().compare(p2,p3));
 
-        /*
         Point[] arr = new Point[4];
 
         arr[0] = new Point(1, 2);
@@ -169,8 +169,7 @@ public class Point implements Comparable<Point> {
 
         Comparator<Point> comp = arr[0].slopeOrder();
         System.out.println(comp.compare(arr[1], arr[2]));
-        */
-        /*
+
         System.out.println("slope == " + p1.slopeTo(p2));
         System.out.println("is p1 bigger " + p1.compareTo(p2));
 

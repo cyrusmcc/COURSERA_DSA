@@ -9,48 +9,50 @@ import java.util.List;
 public class FastCollinearPoints {
 
     private int numSegments = 0;
-    private List<LineSegment> lineSegmentList = new ArrayList<>();
-    private LineSegment[] lineSegArr;
+    private final LineSegment[] lineSegments;
 
     public FastCollinearPoints(Point[] points) {
         if(findDuplicatePoints(points) == true) throw new IllegalArgumentException();
 
-        Point[] sortedPoints = new Point[points.length];
-        Arrays.sort(points);
+        List<LineSegment> lineSegmentList = new ArrayList<>();
 
-        // System.out.println("original sorted");
+        Point[] sortOrderArr = new Point[points.length];
+        for(int i = 0; i < points.length; i++) sortOrderArr[i] = points[i];
+        Arrays.sort(sortOrderArr);
+
+        Point[] sortedPoints = new Point[points.length];
         for(int i = 0; i < points.length; i++) {
-            sortedPoints[i] = points[i];
-            //System.out.println(sortedPoints[i]);
+            sortedPoints[i] = sortOrderArr[i];
         }
-        // System.out.println("");
 
         for (int i = 0; i < points.length; i++) {
 
             int numCon = 3;
-            Arrays.sort(sortedPoints, points[i].slopeOrder());
+            Arrays.sort(sortedPoints, sortOrderArr[i].slopeOrder());
             Point curr = sortedPoints[0];
             Point max;
 
             for (int j = 3; j < points.length; j++) {
+
                 double prevSlope = sortedPoints[0].slopeTo(sortedPoints[j-2]);
                 double currSlope = sortedPoints[0].slopeTo(sortedPoints[j-1]);
                 double nextSlope = sortedPoints[0].slopeTo(sortedPoints[j]);
+
                 if ((prevSlope == currSlope) && (curr.compareTo(sortedPoints[j-2]) < 0)
                                             && (curr.compareTo(sortedPoints[j-1]) < -1)) {
+
                     if (nextSlope == currSlope) numCon++;
                     if (((nextSlope != currSlope) || (j+1 == points.length)) && (numCon >= 4)) {
                         max = sortedPoints[j-1];
                         lineSegmentList.add(new LineSegment(curr, max));
                         numSegments++;
-                        // System.out.println(numCon + " low: " + curr + "max: " + max);
                         break;
                     }
                 }
             }
             // System.out.println("");
         }
-
+            lineSegments = lineSegmentList.toArray(new LineSegment[0]);
     } // finds all line segments containing 4 or more points
 
     public int numberOfSegments() {
@@ -72,13 +74,7 @@ public class FastCollinearPoints {
     }
 
     public LineSegment[] segments() {
-
-        lineSegArr = new LineSegment[numberOfSegments()];
-        for(int i = 0; i < numSegments; i++) {
-            lineSegArr[i] = lineSegmentList.get(i);
-        }
-
-        return Arrays.copyOf(lineSegArr, numSegments);
+        return lineSegments.clone();
     } // the line segments
 
     public static void main(String[] args) {
@@ -124,8 +120,6 @@ public class FastCollinearPoints {
             StdOut.println(segment);
             segment.draw();
         }
-        System.out.println(collinear.numberOfSegments());
         StdDraw.show();
-
     }
 }
