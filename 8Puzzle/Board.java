@@ -23,27 +23,27 @@ public class Board {
         this.tiles = new int[n];
 
         int count = 0;
-        for(int i = 0; i < tiles.length; i++) {
-            for(int j = 0; j < tiles.length; j++) {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
                 this.tiles[count++] = tiles[i][j];
             }
         }
     }
 
-    private Board(){}
+    private Board() {
+    }
 
     // string representation of this board
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
         sb.append(dim);
-        for(int i = 0; i < n; i++) {
-            if(i % (dim) == 0) sb.append("\n");
+        for (int i = 0; i < n; i++) {
+            if (i % (dim) == 0) sb.append("\n");
             sb.append(" " + tiles[i]);
         }
         return sb.toString();
     }
-
 
     // board dimension n
     public int dimension() {
@@ -54,10 +54,9 @@ public class Board {
     public int hamming() {
         int outOfPlace = 0;
 
-        for(int i = 0; i < n; i++) {
-            if(tiles[i] != 0 && tiles[i] != (i + 1)) outOfPlace++;
+        for (int i = 0; i < n; i++) {
+            if (tiles[i] != 0 && tiles[i] != (i + 1)) outOfPlace++;
         }
-
         return outOfPlace;
     }
 
@@ -68,12 +67,12 @@ public class Board {
         // loop 0-n, if val at i is equal to i+1, value in correct location
         // else, second loop, find position with val equal to i+1 and
         // calculate manhattan distance.
-        for(int i = 0; i < n; i++) {
-            if(tiles[i] != 0 && tiles[i] == i+1) continue;
+        for (int i = 0; i < n; i++) {
+            if (tiles[i] != 0 && tiles[i] == i+1) continue;
 
-            for(int j = 0; j < n; j++) {
+            for (int j = 0; j < n; j++) {
 
-                if(tiles[j] != 0 && tiles[j] == i+1) {
+                if (tiles[j] != 0 && tiles[j] == i+1) {
                     sum += Math.abs((i % dim) - (j % dim))
                             + Math.abs((i / dim) - (j / dim));
                 }
@@ -85,10 +84,9 @@ public class Board {
     // is this board the goal board?
     public boolean isGoal() {
 
-        for(int i = 0; i < n; i++) {
-            if(tiles[i] != 0 && !(tiles[i] == i+1)) return false;
+        for (int i = 0; i < n; i++) {
+            if (tiles[i] != 0 && !(tiles[i] == i+1)) return false;
         }
-
         return true;
     }
 
@@ -101,9 +99,9 @@ public class Board {
 
         Board that = (Board) y;
 
-        if(that.dim != this.dim) return false;
-        for(int i = 0; i < n; i++) {
-            if(that.tiles[i] != this.tiles[i]) return false;
+        if (that.dim != this.dim) return false;
+        for (int i = 0; i < n; i++) {
+            if (that.tiles[i] != this.tiles[i]) return false;
         }
         return true;
     }
@@ -113,7 +111,7 @@ public class Board {
         Queue<Board> neighbors = new Queue<>();
         int emptyPos = -1;
 
-        for (int i = 0; i < n; i ++) {
+        for (int i = 0; i < n; i++) {
             if (tiles[i] == 0) {
                 emptyPos = i;
                 break;
@@ -122,10 +120,7 @@ public class Board {
 
         if (emptyPos-dim >= 0 && emptyPos-dim <= n) {
             Board temp = new Board(twoDTiles);
-            //swapTiles(temp, emptyPos, (emptyPos - dim));
-            int t  = temp.tiles[emptyPos];
-            temp.tiles[emptyPos] = temp.tiles[emptyPos-dim];
-            temp.tiles[emptyPos-dim] = t;
+            swapTiles(temp, emptyPos, (emptyPos - dim));
             neighbors.enqueue(temp);
         }
         if (emptyPos+dim >= 0 && emptyPos+dim <= n) {
@@ -138,17 +133,15 @@ public class Board {
             swapTiles(temp, emptyPos, (emptyPos - 1));
             neighbors.enqueue(temp);
         }
-        if (emptyPos+1 >= 0 && emptyPos+1 <= n) {
+        if (emptyPos+1 <= n) {
             Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos + 1));
             neighbors.enqueue(temp);
         }
-
         return neighbors;
     }
 
     private void swapTiles(Board temp, int t1, int t2) {
-
         int t  = temp.tiles[t1];
         temp.tiles[t1] = temp.tiles[t2];
         temp.tiles[t2] = t;
@@ -160,10 +153,10 @@ public class Board {
         Board twin = new Board(twoDTiles);
 
         int p1, p2;
-        if(twin.tiles[n-1] != 0) p1 = n-1;
+        if (twin.tiles[n-1] != 0) p1 = n-1;
         else p1 = n-2;
 
-        if(twin.tiles[0] != 0) p2 = 0;
+        if (twin.tiles[0] != 0) p2 = 0;
         else p2 = 1;
 
         int t = twin.tiles[p1];
@@ -177,7 +170,7 @@ public class Board {
     public static void main(String[] args) {
 
         int[][] tiles = new int[3][3];
-        //int[][] tiles2 = new int[3][3];
+        // int[][] tiles2 = new int[3][3];
         int c = 1;
 
         /*
@@ -201,13 +194,13 @@ public class Board {
         tiles[2][2] = 6;
 
         Board board = new Board(tiles);
-        //Board board2 = new Board(tiles2);
+        // Board board2 = new Board(tiles2);
         System.out.println(board);
         System.out.println("Hamming: " + board.hamming());
         System.out.println("Manhattan: " + board.manhattan());
         System.out.println("Is Goal: " + board.isGoal());
-        //System.out.println("Are equal: " + board.equals(board2));
-        for(Board b : board.neighbors()) System.out.println("neighbor: " + b);
+        // System.out.println("Are equal: " + board.equals(board2));
+        for (Board b : board.neighbors()) System.out.println("neighbor: " + b);
         System.out.println("\n twin: " + board.twin());
     }
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c1e4f978-b3bd-4ae1-84e9-9e1170bce808" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Solver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Board.java" afterDir="false" />
     </list>
@@ -114,7 +115,7 @@
       <option name="presentableId" value="Default" />
       <updated>1625446841259</updated>
       <workItem from="1625446842402" duration="14276000" />
-      <workItem from="1625493800858" duration="1802000" />
+      <workItem from="1625493800858" duration="6047000" />
     </task>
     <servers />
   </component>
