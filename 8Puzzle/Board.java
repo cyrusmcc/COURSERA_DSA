@@ -78,7 +78,12 @@ public class Board {
 
     // is this board the goal board?
     public boolean isGoal() {
-        return false;
+
+        for(int i = 0; i < n; i++) {
+            if(board[i] != 0 && !(board[i] == i+1)) return false;
+        }
+
+        return true;
     }
 
     // does this board equal y?
@@ -108,8 +113,9 @@ public class Board {
                 tiles[i][j] = c++;
             }
         }
-         */
+        */
 
+        /*
         tiles[0][0] = 8;
         tiles[0][1] = 1;
         tiles[0][2] = 3;
@@ -119,12 +125,13 @@ public class Board {
         tiles[2][0] = 7;
         tiles[2][1] = 6;
         tiles[2][2] = 5;
-
+        */
 
         Board board = new Board(tiles);
         System.out.println(board.toString());
-        // System.out.println(board.hamming());
-        System.out.println(board.manhattan());
+        System.out.println("Hamming: " + board.hamming());
+        System.out.println("Manhattan: " + board.manhattan());
+        System.out.println("Is Goal: " + board.isGoal());
 
     }
 }
