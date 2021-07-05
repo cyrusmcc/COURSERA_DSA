@@ -8,13 +8,15 @@ public class Board {
 
     private int[] board;
     private int dim;
+    private int n;
 
     // create a board from an n-by-n array of tiles,
     // where tiles[row][col] = tile at (row, col)
     public Board(int[][] tiles) {
 
         this.dim = tiles.length;
-        this.board = new int[dim*dim];
+        this.n = dim*dim;
+        this.board = new int[n];
 
         int count = 0;
         for(int i = 0; i < tiles.length; i++) {
@@ -29,29 +31,49 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         sb.append(dim);
-        for(int i = 0; i < dim*dim; i++) {
+        for(int i = 0; i < n; i++) {
             if(i % (dim) == 0) sb.append("\n");
             sb.append(" " + board[i]);
         }
-
         return sb.toString();
     }
 
 
     // board dimension n
     public int dimension() {
-
-        return 0;
+        return dim;
     }
 
     // number of tiles out of place
     public int hamming() {
-        return 0;
+        int outOfPlace = 0;
+
+        for(int i = 0; i < n; i++) {
+            if(board[i] != 0 && board[i] != (i + 1)) outOfPlace++;
+        }
+
+        return outOfPlace;
     }
 
     // sum of Manhattan distances between tiles and goal
     public int manhattan() {
-        return 0;
+        int sum = 0;
+
+        // loop 0-n, if val at i is equal to i+1, value in correct location
+        // else, second loop, find position with val equal to i+1 and
+        // calculate manhattan distance.
+        for(int i = 0; i < n; i++) {
+            if(board[i] != 0 && board[i] == i+1) continue;
+
+            for(int j = 0; j < n; j++) {
+
+                if(board[j] != 0 && board[j] == i+1) {
+                    sum += Math.abs((i % dim) - (j % dim))
+                            + Math.abs((i / dim) - (j / dim));
+                }
+            }
+        }
+        return sum;
     }
 
     // is this board the goal board?
@@ -78,16 +100,31 @@ public class Board {
     public static void main(String[] args) {
 
         int[][] tiles = new int[3][3];
-        int c = 0;
+        int c = 1;
 
+        /*
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 tiles[i][j] = c++;
             }
         }
+         */
+
+        tiles[0][0] = 8;
+        tiles[0][1] = 1;
+        tiles[0][2] = 3;
+        tiles[1][0] = 4;
+        tiles[1][1] = 0;
+        tiles[1][2] = 2;
+        tiles[2][0] = 7;
+        tiles[2][1] = 6;
+        tiles[2][2] = 5;
+
 
         Board board = new Board(tiles);
         System.out.println(board.toString());
+        // System.out.println(board.hamming());
+        System.out.println(board.manhattan());
 
     }
 }
