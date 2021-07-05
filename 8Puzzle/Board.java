@@ -4,9 +4,11 @@
  *  Description:
  **************************************************************************** */
 
+import edu.princeton.cs.algs4.Queue;
+
 public class Board {
 
-    private int[] board;
+    private int[] tiles;
     private int dim;
     private int n;
 
@@ -16,12 +18,12 @@ public class Board {
 
         this.dim = tiles.length;
         this.n = dim*dim;
-        this.board = new int[n];
+        this.tiles = new int[n];
 
         int count = 0;
         for(int i = 0; i < tiles.length; i++) {
             for(int j = 0; j < tiles.length; j++) {
-                board[count++] = tiles[i][j];
+                this.tiles[count++] = tiles[i][j];
             }
         }
     }
@@ -33,7 +35,7 @@ public class Board {
         sb.append(dim);
         for(int i = 0; i < n; i++) {
             if(i % (dim) == 0) sb.append("\n");
-            sb.append(" " + board[i]);
+            sb.append(" " + tiles[i]);
         }
         return sb.toString();
     }
@@ -49,7 +51,7 @@ public class Board {
         int outOfPlace = 0;
 
         for(int i = 0; i < n; i++) {
-            if(board[i] != 0 && board[i] != (i + 1)) outOfPlace++;
+            if(tiles[i] != 0 && tiles[i] != (i + 1)) outOfPlace++;
         }
 
         return outOfPlace;
@@ -63,11 +65,11 @@ public class Board {
         // else, second loop, find position with val equal to i+1 and
         // calculate manhattan distance.
         for(int i = 0; i < n; i++) {
-            if(board[i] != 0 && board[i] == i+1) continue;
+            if(tiles[i] != 0 && tiles[i] == i+1) continue;
 
             for(int j = 0; j < n; j++) {
 
-                if(board[j] != 0 && board[j] == i+1) {
+                if(tiles[j] != 0 && tiles[j] == i+1) {
                     sum += Math.abs((i % dim) - (j % dim))
                             + Math.abs((i / dim) - (j / dim));
                 }
@@ -80,7 +82,7 @@ public class Board {
     public boolean isGoal() {
 
         for(int i = 0; i < n; i++) {
-            if(board[i] != 0 && !(board[i] == i+1)) return false;
+            if(tiles[i] != 0 && !(tiles[i] == i+1)) return false;
         }
 
         return true;
@@ -97,14 +99,55 @@ public class Board {
 
         if(that.dim != this.dim) return false;
         for(int i = 0; i < n; i++) {
-            if(that.board[i] != this.board[i]) return false;
+            if(that.tiles[i] != this.tiles[i]) return false;
         }
         return true;
     }
 
     // all neighboring boards
     public Iterable<Board> neighbors() {
-        return null;
+        Queue<Board> neighbors = new Queue<>();
+        int emptyPos = -1;
+
+        for (int i = 0; i < n; i ++) {
+            if (tiles[i] == 0) {
+                emptyPos = i;
+                break;
+            }
+        }
+        System.out.println("empty index: " + emptyPos);
+        /*
+        if (emptyPos-dim >= 0 && emptyPos-dim <= n) {
+            Board temp = this;
+            //swapTiles(temp, emptyPos, (emptyPos - dim));
+            int t  = temp.tiles[emptyPos];
+            temp.tiles[emptyPos] = temp.tiles[emptyPos-dim];
+            temp.tiles[emptyPos-dim] = t;
+            neighbors.enqueue(temp);
+        }*/
+        if (emptyPos+dim >= 0 && emptyPos+dim <= n) {
+            Board temp = this;
+            swapTiles(temp, emptyPos, (emptyPos + dim));
+            neighbors.enqueue(temp);
+        }/*
+        if (emptyPos-1 >= 0 && emptyPos-1 <= n) {
+            Board temp = this;
+            swapTiles(temp, emptyPos, (emptyPos - 1));
+            neighbors.enqueue(temp);
+        }
+        if (emptyPos+1 >= 0 && emptyPos+1 <= n) {
+            Board temp = this;
+            swapTiles(temp, emptyPos, (emptyPos + 1));
+            neighbors.enqueue(temp);
+        }*/
+
+        return neighbors;
+    }
+
+    private void swapTiles(Board temp, int t1, int t2) {
+        int t  = temp.tiles[t1];
+        temp.tiles[t1] = temp.tiles[t2];
+        temp.tiles[t2] = t;
     }
 
     // a board that is obtained by exchanging any pair of tiles
@@ -116,9 +159,10 @@ public class Board {
     public static void main(String[] args) {
 
         int[][] tiles = new int[3][3];
-        int[][] tiles2 = new int[3][3];
+        //int[][] tiles2 = new int[3][3];
         int c = 1;
 
+        /*
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 3; j++) {
                 tiles[i][j] = c;
@@ -126,25 +170,26 @@ public class Board {
                 c++;
             }
         }
+        */
 
-        /*
-        tiles[0][0] = 8;
-        tiles[0][1] = 1;
+        tiles[0][0] = 1;
+        tiles[0][1] = 0;
         tiles[0][2] = 3;
         tiles[1][0] = 4;
-        tiles[1][1] = 0;
-        tiles[1][2] = 2;
+        tiles[1][1] = 2;
+        tiles[1][2] = 5;
         tiles[2][0] = 7;
-        tiles[2][1] = 6;
-        tiles[2][2] = 5;
-         */
+        tiles[2][1] = 8;
+        tiles[2][2] = 6;
 
         Board board = new Board(tiles);
-        Board board2 = new Board(tiles2);
-        System.out.println(board.toString());
+        //Board board2 = new Board(tiles2);
+        System.out.println(board);
         System.out.println("Hamming: " + board.hamming());
         System.out.println("Manhattan: " + board.manhattan());
         System.out.println("Is Goal: " + board.isGoal());
-        System.out.println("Are equal: " + board.equals(board2));
+        //System.out.println("Are equal: " + board.equals(board2));
+        for(Board b : board.neighbors()) System.out.println(b);
+
     }
 }
