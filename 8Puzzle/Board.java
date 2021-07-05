@@ -9,6 +9,7 @@ import edu.princeton.cs.algs4.Queue;
 public class Board {
 
     private int[] tiles;
+    private int[][] twoDTiles;
     private int dim;
     private int n;
 
@@ -17,6 +18,7 @@ public class Board {
     public Board(int[][] tiles) {
 
         this.dim = tiles.length;
+        this.twoDTiles = tiles;
         this.n = dim*dim;
         this.tiles = new int[n];
 
@@ -27,6 +29,8 @@ public class Board {
             }
         }
     }
+
+    private Board(){}
 
     // string representation of this board
     public String toString() {
@@ -115,36 +119,36 @@ public class Board {
                 break;
             }
         }
-        System.out.println("empty index: " + emptyPos);
-        /*
+
         if (emptyPos-dim >= 0 && emptyPos-dim <= n) {
-            Board temp = this;
+            Board temp = new Board(twoDTiles);
             //swapTiles(temp, emptyPos, (emptyPos - dim));
             int t  = temp.tiles[emptyPos];
             temp.tiles[emptyPos] = temp.tiles[emptyPos-dim];
             temp.tiles[emptyPos-dim] = t;
             neighbors.enqueue(temp);
-        }*/
+        }
         if (emptyPos+dim >= 0 && emptyPos+dim <= n) {
-            Board temp = this;
+            Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos + dim));
             neighbors.enqueue(temp);
-        }/*
+        }
         if (emptyPos-1 >= 0 && emptyPos-1 <= n) {
-            Board temp = this;
+            Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos - 1));
             neighbors.enqueue(temp);
         }
         if (emptyPos+1 >= 0 && emptyPos+1 <= n) {
-            Board temp = this;
+            Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos + 1));
             neighbors.enqueue(temp);
-        }*/
+        }
 
         return neighbors;
     }
 
     private void swapTiles(Board temp, int t1, int t2) {
+
         int t  = temp.tiles[t1];
         temp.tiles[t1] = temp.tiles[t2];
         temp.tiles[t2] = t;
@@ -152,7 +156,21 @@ public class Board {
 
     // a board that is obtained by exchanging any pair of tiles
     public Board twin() {
-        return null;
+
+        Board twin = new Board(twoDTiles);
+
+        int p1, p2;
+        if(twin.tiles[n-1] != 0) p1 = n-1;
+        else p1 = n-2;
+
+        if(twin.tiles[0] != 0) p2 = 0;
+        else p2 = 1;
+
+        int t = twin.tiles[p1];
+        twin.tiles[p1] = twin.tiles[p2];
+        twin.tiles[p2] = t;
+
+        return twin;
     }
 
     // unit testing (not graded)
@@ -189,7 +207,7 @@ public class Board {
         System.out.println("Manhattan: " + board.manhattan());
         System.out.println("Is Goal: " + board.isGoal());
         //System.out.println("Are equal: " + board.equals(board2));
-        for(Board b : board.neighbors()) System.out.println(b);
-
+        for(Board b : board.neighbors()) System.out.println("neighbor: " + b);
+        System.out.println("\n twin: " + board.twin());
     }
 }
