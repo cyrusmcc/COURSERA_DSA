@@ -118,22 +118,22 @@ public class Board {
             }
         }
 
-        if (emptyPos-dim >= 0 && emptyPos-dim <= n) {
+        if (emptyPos-dim >= 0 && emptyPos-dim < n) {
             Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos - dim));
             neighbors.enqueue(temp);
         }
-        if (emptyPos+dim >= 0 && emptyPos+dim <= n) {
+        if (emptyPos+dim >= 0 && emptyPos+dim < n) {
             Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos + dim));
             neighbors.enqueue(temp);
         }
-        if (emptyPos-1 >= 0 && emptyPos-1 <= n) {
+        if (emptyPos-1 >= 0 && emptyPos-1 < n) {
             Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos - 1));
             neighbors.enqueue(temp);
         }
-        if (emptyPos+1 <= n) {
+        if (emptyPos+1 < n) {
             Board temp = new Board(twoDTiles);
             swapTiles(temp, emptyPos, (emptyPos + 1));
             neighbors.enqueue(temp);
