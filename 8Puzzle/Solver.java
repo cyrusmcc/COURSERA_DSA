@@ -36,6 +36,7 @@ public class Solver {
     }
 
     private int moves;
+    private boolean solvable;
 
     // find a solution to the initial board (using the A* algorithm)
     public Solver(Board initial) {
@@ -48,16 +49,35 @@ public class Solver {
         initialNode.prev = null;
         minPQ.insert(initialNode);
 
+        /*
+        MinPQ<SearchNode> twinMinPq = new MinPQ<SearchNode>();
+        SearchNode initialTwin = new SearchNode();
+        initialTwin.board = initial.twin();
+        initialTwin.moves = 0;
+        initialTwin.prev = null;
+        twinMinPq.insert(initialTwin);
+        */
+
         while(true) {
 
             List<SearchNode> neighbors = new ArrayList<>();
             SearchNode min = minPQ.delMin();
             moves = min.moves;
 
+           /* List<SearchNode> twinNeighbors = new ArrayList<>();
+            SearchNode twinMin = twinMinPq.delMin();*/
+
             if (min.board.isGoal()) {
+                solvable = true;
                 for(Board b : solution(min)) System.out.println(b);
                 break;
             }
+
+           /* if (twinMin.board.isGoal()) {
+                solvable = false;
+                for(Board b : solution(twinMin)) System.out.println(b);
+                break;
+            } */
 
             for (Board  b: min.board.neighbors()) {
                 if (min.prev != null && b.equals(min.prev.board)) continue;
@@ -69,19 +89,36 @@ public class Solver {
                 neighbors.add(newNode);
             }
 
+           /* for (Board  b: twinMin.board.neighbors()) {
+                if (twinMin.prev != null && b.equals(twinMin.prev.board)) continue;
+                SearchNode newNode = new SearchNode();
+                newNode.board = b;
+                newNode.prev = twinMin;
+                newNode.moves = newNode.prev.moves + 1;
+                newNode.priority = (b.manhattan() + newNode.moves);
+                twinNeighbors.add(newNode);
+            } */
+
             neighbors.sort(neighbors.get(0).sortByPriority());
-            for(SearchNode s : neighbors) minPQ.insert(s);
+            for(SearchNode s : neighbors) {
+                minPQ.insert(s);
+                System.out.println(s.priority + " " + s.board);
+            }
+
+          /*  twinNeighbors.sort(twinNeighbors.get(0).sortByPriority());
+            for(SearchNode t : twinNeighbors) twinMinPq.insert(t); */
         }
     }
 
     // is the initial board solvable? (see below)
     public boolean isSolvable() {
+        if(solvable == true) return true;
         return false;
     }
 
     // min number of moves to solve initial board; -1 if unsolvable
     public int moves() {
-        if(isSolvable()) return moves;
+        if(!isSolvable()) return moves;
         else return -1;
     }
 
@@ -112,8 +149,7 @@ public class Solver {
         // solve the puzzle
         Solver solver = new Solver(initial);
 
-        solver.moves();
-
+        System.out.println(solver.isSolvable());
         // print solution to standard output
         //if (!solver.isSolvable())
           //  StdOut.println("No solution possible");

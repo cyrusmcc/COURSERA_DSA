@@ -80,7 +80,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.saveactions" />
   </component>
-  <component name="RunManager" selected="Application.Solver">
+  <component name="RunManager" selected="Application.Board">
     <configuration name="Board" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Board" />
       <module name="Algorithms, Part I" />
@@ -91,20 +91,7 @@
     <configuration name="Solver" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Solver" />
       <module name="Algorithms, Part I" />
-      <option name="PROGRAM_PARAMETERS" value="puzzle3x3-01.txt" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="PROGRAM_PARAMETERS" value="puzzle04.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -123,7 +110,11 @@
       <option name="presentableId" value="Default" />
       <updated>1625446841259</updated>
       <workItem from="1625446842402" duration="14276000" />
-      <workItem from="1625493800858" duration="14206000" />
+      <workItem from="1625493800858" duration="26172000" />
+      <workItem from="1625562675403" duration="417000" />
+      <workItem from="1625564962319" duration="596000" />
+      <workItem from="1625587608075" duration="3000" />
+      <workItem from="1625634417130" duration="2031000" />
     </task>
     <servers />
   </component>
