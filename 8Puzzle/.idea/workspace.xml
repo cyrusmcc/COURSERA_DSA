@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Solver.java" beforeDir="false" afterPath="$PROJECT_DIR$/Solver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puzzle2x2-02.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puzzle2x2-02.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +115,9 @@
       <workItem from="1625562675403" duration="417000" />
       <workItem from="1625564962319" duration="596000" />
       <workItem from="1625587608075" duration="3000" />
-      <workItem from="1625634417130" duration="2031000" />
+      <workItem from="1625634417130" duration="6453000" />
+      <workItem from="1625715152446" duration="4992000" />
+      <workItem from="1625822790037" duration="1031000" />
     </task>
     <servers />
   </component>

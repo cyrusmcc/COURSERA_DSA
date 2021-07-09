@@ -6,6 +6,9 @@
 
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
 
     private int[] tiles;
@@ -110,9 +113,13 @@ public class Board {
     // all neighboring boards
     public Iterable<Board> neighbors() {
         Queue<Board> neighbors = new Queue<>();
-        int emptyPos = -1;
+        int emptyPos = -1, row = 0;
 
         for (int i = 0; i < n; i++) {
+            if((i+1) % dim == 0) { // compare row of 0 to row of replace, if same row allow else dont
+                row++;
+                System.out.println(row + "<r d>" + dim);
+            }
             if (tiles[i] == 0) {
                 emptyPos = i;
                 break;
@@ -121,34 +128,30 @@ public class Board {
 
         if (emptyPos-dim >= 0 && emptyPos-dim < n) {
             Board temp = new Board(tiles.clone(), dim);
-            System.out.println("empty " + temp.tiles[emptyPos] + temp.tiles[emptyPos-dim]);
             temp.tiles[emptyPos] = temp.tiles[emptyPos-dim];
             temp.tiles[emptyPos-dim] = 0;
-            System.out.println(temp);
+            System.out.println("1 -" + temp);
             neighbors.enqueue(temp);
         }
         if (emptyPos+dim >= 0 && emptyPos+dim < n) {
             Board temp = new Board(tiles.clone() ,dim);
-            System.out.println("empty " + temp.tiles[emptyPos] + temp.tiles[emptyPos+dim]);
             temp.tiles[emptyPos] = temp.tiles[emptyPos+dim];
             temp.tiles[emptyPos+dim] = 0;
-            System.out.println(temp);
+            System.out.println("2 -" + temp);
             neighbors.enqueue(temp);
         }
         if (emptyPos-1 >= 0 && emptyPos-1 < n) {
             Board temp = new Board(tiles.clone(), dim);
-            System.out.println("empty " + temp.tiles[emptyPos] + temp.tiles[emptyPos-1]);
             temp.tiles[emptyPos] = temp.tiles[emptyPos-1];
             temp.tiles[emptyPos-1] = 0;
-            System.out.println(temp);
+            System.out.println("3 -" + temp);
             neighbors.enqueue(temp);
         }
         if (emptyPos+1 < n) {
             Board temp = new Board(tiles.clone(), dim);
-            System.out.println("empty " + temp.tiles[emptyPos] + temp.tiles[emptyPos+1]);
             temp.tiles[emptyPos] = temp.tiles[emptyPos+1];
             temp.tiles[emptyPos+1] = 0;
-            System.out.println(temp);
+            System.out.println("4 -" + temp);
             neighbors.enqueue(temp);
         }
         return neighbors;
@@ -157,7 +160,7 @@ public class Board {
     // a board that is obtained by exchanging any pair of tiles
     public Board twin() {
 
-        Board twin = new Board(tiles, dim);
+        Board twin = new Board(tiles.clone(), dim);
 
         int p1, p2;
         if (twin.tiles[n-1] != 0) p1 = n-1;
@@ -176,7 +179,7 @@ public class Board {
     // unit testing (not graded)
     public static void main(String[] args) {
 
-        int[][] tiles = new int[3][3];
+        int[][] tiles = new int[2][2];
         // int[][] tiles2 = new int[3][3];
         int c = 1;
 
@@ -190,26 +193,29 @@ public class Board {
         }
         */
 
-        tiles[0][0] = 6;
+        tiles[0][0] = 3;
         tiles[0][1] = 2;
-        tiles[0][2] = 3;
-        tiles[1][0] = 4;
-        tiles[1][1] = 0;
-        tiles[1][2] = 5;
-        tiles[2][0] = 7;
-        tiles[2][1] = 1;
-        tiles[2][2] = 8;
+        tiles[1][0] = 0;
+        tiles[1][1] = 1;
 
         Board board = new Board(tiles);
+        List<Board> n = new ArrayList<>();
         System.out.println(board);
         System.out.println("Hamming: " + board.hamming());
         System.out.println("Manhattan: " + board.manhattan());
         System.out.println("Is Goal: " + board.isGoal());
-        board.neighbors();
-        // System.out.println("Are equal: " + board.equals(board2));
-        /*for (Board b : board.neighbors()) {
-            System.out.println("neighbor: " + b);
-        }*/
+        //board.neighbors();
+         //System.out.println("Are equal: " + board.equals());
+        for (Board b : board.neighbors()) {
+            //System.out.println("neighbor: \n" + b);
+            n.add(b);
+        }
+
+        System.out.println("----");
+        System.out.println("b:" + n.get(0));
+        n.get(0).neighbors();
+
+
         System.out.println("\n twin: " + board.twin());
     }
 }
