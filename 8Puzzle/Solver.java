@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Solver {
 
-    private static class SearchNode implements Comparable {
+    private static class SearchNode implements Comparable<SearchNode> {
         private Board board;
         private int moves;
         private int priority;
@@ -43,12 +43,12 @@ public class Solver {
             return comparator;
         }
 
-        public int compareTo(Object o) {
+        public int compareTo(SearchNode o) {
             return 0;
         }
     }
 
-    private int moves;
+    private int leastMoves;
     private boolean solvable;
     private SearchNode sol;
 
@@ -65,9 +65,9 @@ public class Solver {
         twinMinPq.insert(initialTwin);
 
         while (true) {
+
             List<SearchNode> neighbors = new ArrayList<>();
             SearchNode min = minPQ.delMin();
-            moves = min.moves;
 
             List<SearchNode> twinNeighbors = new ArrayList<>();
             SearchNode twinMin = twinMinPq.delMin();
@@ -75,6 +75,7 @@ public class Solver {
             if (min.board.isGoal()) {
                 solvable = true;
                 sol = min;
+                leastMoves = initial.manhattan();
                 for (Board b : solution()) System.out.println(b);
                 break;
             }
@@ -102,12 +103,13 @@ public class Solver {
 
             neighbors.sort(neighbors.get(0).sortByPriority());
             for (SearchNode s : neighbors) {
+                // System.out.println(s.priority + " " + s.board);
                 minPQ.insert(s);
             }
 
             twinNeighbors.sort(twinNeighbors.get(0).sortByPriority());
             for (SearchNode t : twinNeighbors) {
-                System.out.println(t.priority + " " + t.board);
+                // System.out.println(t.priority + " " + t.board);
                 twinMinPq.insert(t);
             }
         }
@@ -121,17 +123,18 @@ public class Solver {
 
     // min number of moves to solve initial board; -1 if unsolvable
     public int moves() {
-        if (!isSolvable()) return moves;
+        if (isSolvable()) return leastMoves;
         else return -1;
     }
 
     // sequence of boards in a shortest solution; null if unsolvable
     public Iterable<Board> solution() {
         Stack<Board> stack = new Stack<>();
+        SearchNode temp = sol;
 
-        while (sol != null) {
-            stack.push(sol.board);
-            sol = sol.prev;
+        while (temp != null) {
+            stack.push(temp.board);
+            temp = temp.prev;
         }
 
         return stack;
@@ -153,12 +156,13 @@ public class Solver {
         Solver solver = new Solver(initial);
         // System.out.println("t:" + initial.twin());
         System.out.println(solver.isSolvable());
+        System.out.println(solver.moves());
         // print solution to standard output
         // if (!solver.isSolvable())
           //  StdOut.println("No solution possible");
         // else {
             // StdOut.println("Minimum number of moves = " + solver.moves());
-            // for (Board board : solver.solution())
+            // 8for (Board board : solver.solution())
               //  StdOut.println(board);
         //}
 
