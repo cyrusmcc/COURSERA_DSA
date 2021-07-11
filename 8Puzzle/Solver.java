@@ -76,14 +76,12 @@ public class Solver {
                 solvable = true;
                 sol = min;
                 leastMoves = initial.manhattan();
-                for (Board b : solution()) System.out.println(b);
                 break;
             }
 
             if (twinMin.board.isGoal()) {
                 solvable = false;
                 sol = twinMin;
-                for (Board b : solution()) System.out.println(b);
                 break;
             }
 
